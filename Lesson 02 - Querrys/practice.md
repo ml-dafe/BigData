@@ -1,18 +1,18 @@
 # Семинар 1
 ### Часть 1. 
-1. Установите и запустите RabitMQ с помощью Docker
+1. Установите и запустите RabbitMQ с помощью Docker
 ```docker run -it --rm -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management```
 2. Создайте файл producer.py
     - Используйте библиотеку pika
     - Создайте подключение connection с помощью класса `pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))`
     - Для подклдчения к брокеру используйте метод `.channel()
     - Для обозначения очереди используйте метод `.queue_declare(queue='название очереди')`
-    - Для публикации сообщения используйте метод `.basic_publish`
+    - Для публикации сообщения используйте метод `.basic_publish()`
     - Для закрытия подключения вы можете использовать метод `.close()`
 3. Создайте файл consumer.py
     - Импортируйте библиотеки pika, sys, os
     - Используйте шаблон: 
-        if __name__ == '__main__':
+        ```if __name__ == '__main__':
             try:
                 main()
             except KeyboardInterrupt:
@@ -20,7 +20,7 @@
                 try:
                     sys.exit(0)
                 except SystemExit:
-                    os._exit(0)
+                    os._exit(0)```
     - Создайте функцию main():
         - Аналогично producer.py подключитесь к серверу и выберите нужную очередь
         - Опишите настройки метода чтения из очереди `channel.basic_consume(queue='название очереди', on_message_callback=callback, auto_ack=True)
